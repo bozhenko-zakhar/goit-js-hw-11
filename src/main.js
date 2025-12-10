@@ -20,30 +20,27 @@ form.addEventListener("submit", e => {
 		return
 	} 
 
-	const promise = getImagesByQuery({
-		key: "53631669-5f3764d338a9b02a712e297a2",
-		q: input.value,
-		image_type: "photo",
-		orientation: "horizontal",
-		safesearch: true
-	});
+	const promise = getImagesByQuery("https://pixabay.com/api");
 
 	showLoader();
 
 	promise.then(data => {
-		hideLoader();
-
 		const hits = data.hits;
 		
 		if (!hits.length) {
-			throw new Error();
+			iziToast.error({
+					message: "Sorry, there are no images matching your search query. Please try again!",
+					position: "topRight"
+			});
 		}
 
 		createGallery(hits);
-	}).catch(() => {
+	}).catch((error) => {
 		iziToast.error({
-				message: "Sorry, there are no images matching your search query. Please try again!",
+				message: error.message,
 				position: "topRight"
-			});
+		});
+	}).finally(() => {
+		hideLoader();
 	})
 })

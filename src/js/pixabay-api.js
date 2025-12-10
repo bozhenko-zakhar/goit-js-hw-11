@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export default function getImagesByQuery(query) {
-	return axios.get("https://pixabay.com/api", {
+	return axios.get(query, {
 		params: {
-			key: query.key,
-			q: query.q,
-			image_type: query.image_type,
-			orientation: query.orientation,
-			safesearch: query.safesearch
+			key: "53631669-5f3764d338a9b02a712e297a2",
+			q: input.value,
+			image_type: "photo",
+			orientation: "horizontal",
+			safesearch: true
 		}
 	}).then(response => {
 		return response.data
