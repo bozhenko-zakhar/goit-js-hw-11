@@ -20,7 +20,7 @@ form.addEventListener("submit", e => {
 		return
 	} 
 
-	const promise = getImagesByQuery("https://pixabay.com/api");
+	const promise = getImagesByQuery(`https://pixabay.com/api?q=${input.value}`);
 
 	showLoader();
 
