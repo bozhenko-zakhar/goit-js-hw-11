@@ -20,7 +20,7 @@ form.addEventListener("submit", e => {
 		return
 	} 
 
-	const axiosGetQueryParams = new URLSearchParams({
+	const promise = getImagesByQuery({
 		key: "53631669-5f3764d338a9b02a712e297a2",
 		q: input.value,
 		image_type: "photo",
@@ -28,14 +28,12 @@ form.addEventListener("submit", e => {
 		safesearch: true
 	});
 
-	const axiosGetQuery = `https://pixabay.com/api?${axiosGetQueryParams}`;
-	const promise = getImagesByQuery(axiosGetQuery);
 	showLoader();
 
-	promise.then(response => {
+	promise.then(data => {
 		hideLoader();
 
-		const hits = response.data.hits;
+		const hits = data.hits;
 		
 		if (!hits.length) {
 			throw new Error();
